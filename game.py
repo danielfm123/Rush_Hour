@@ -32,22 +32,21 @@ class Board:
         self.size = 6
         self.blocks = []
         self.max_blocks = max_blocks
+        self.target_set = False
 
     def addBlock(self, block, is_target=False):
-        if block.__class__.__name__ == 'list':
-            if is_target:
-                self.target_block = block
-                self.blocks = block + self.blocks
-            else:
-                self.blocks = self.blocks + block
-            if len(self.blocks) > self.max_blocks:
-                exit('More blocks than slots!')
+        if len(self.blocks) > self.max_blocks:
+            exit('More blocks than slots!')
+        if is_target:
+            self.target_set = True
+            self.blocks = [block] + self.blocks
         else:
-            self.addBlock([block], is_target)
+            self.blocks = self.blocks + [block]
+
 
     def isBlockInside(self,block_num):
         block = self.blocks[block_num]
-        if (block.y >= 0 and block.x >= 0):
+        if (block.x >= 0 and block.y >= 0):
             if block.horizontal:
                 if (block.x + block.length < self.size):
                     return True
@@ -92,7 +91,7 @@ class Board:
             return False
 
     def didWin(self):
-        if (self.target_block.x == 4):
+        if self.blocks[0].x == 4 and self.target_set:
             return True
         else:
             return False
@@ -111,14 +110,8 @@ class Board:
         feedbabk = self.moveBlock(block_number,n)
         return  [feedbabk] + board + movement
 
-    def allMoves(self,feedbacks=[]):
-        boards = []
-        for b in self.blocks:
-            for m in possible_moves:
-                board = copy.deepcopy(self)
-                feedback = board.getMoveFeedback(b,m)
-                feedbacks.append(feedback)
-                if feedback[1]:
-                    if not board.didWin():
-                        boards.append(board)
+    def makeAllMoves(self):
+        for b in range(len(self.blocks)):
+            for p in possible_moves:
+                yield b, p
 
