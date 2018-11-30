@@ -1,6 +1,7 @@
 import game
 import importlib
 import copy
+import numpy as np
 game = importlib.reload(game)
 
 brd = game.Board()
@@ -20,26 +21,30 @@ brd.didWin()
 
 feedback = []
 board_queue = [brd]
-previous_boards = []
+found_boards = []
 
 while len(board_queue) > 0:
     #print(len(board_queue))
     current_board = game.randomPop(board_queue)
-    previous_boards.append(current_board.getBoardVector())
-    #print(current_board.toMatrix())
     if current_board.didWin():
         print('won!')
     else:
         for b, p in current_board.makeAllMoves():
             test_board = copy.deepcopy(current_board)
             pre_feedback = test_board.getMoveFeedback(b, p)
-            #print(test_board.toMatrix())
+            test_board_vector = test_board.getBoardVector()
             if pre_feedback[0]:
-                if test_board.getBoardVector() in previous_boards:
+                if test_board_vector in found_boards:
                     pre_feedback[0] = False
-                else:
+                elif not test_board_vector in found_boards:
                     board_queue.append(test_board)
+                    found_boards.append(test_board_vector)
             feedback.append(pre_feedback)
 
 
-print(len(feedback))
+# for b in found_boards:
+#    print(sum([x == b for x in found_boards]))
+
+
+# print(len(feedback))
+
