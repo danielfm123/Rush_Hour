@@ -1,7 +1,14 @@
 import numpy as np
 import copy
+import random
 
 possible_moves = [-1,1]
+
+def randomPop(elements):
+    if(len(elements) > 0):
+        taken = random.choice(elements)
+        elements.remove(taken)
+        return taken
 
 class Block:
 
@@ -48,10 +55,10 @@ class Board:
         block = self.blocks[block_num]
         if (block.x >= 0 and block.y >= 0):
             if block.horizontal:
-                if (block.x + block.length < self.size):
+                if (block.x + block.length <= self.size):
                     return True
             else:
-                if (block.y + block.length < self.size):
+                if (block.y + block.length <= self.size):
                     return True
         else:
             return False
@@ -107,7 +114,7 @@ class Board:
         board = self.getBoardVector()
         movement = [0]*self.max_blocks
         movement[block_number] = n
-        feedbabk = self.moveBlock(block_number,n)
+        feedbabk = self.moveBlock(block_number, n)
         return  [feedbabk] + board + movement
 
     def makeAllMoves(self):

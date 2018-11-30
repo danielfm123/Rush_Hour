@@ -1,5 +1,6 @@
 import game
 import numpy as np
+import copy
 
 import importlib
 game = importlib.reload(game)
@@ -8,14 +9,14 @@ brd = game.Board()
 b0 = game.Block(1,1,3,True)
 b1 = game.Block(0,0,3,False)
 b2 = game.Block(1,1,0,False)
-target = game.Block.makeTarget(2)
+target = game.Block.makeTarget(4)
 brd.addBlock(b0)
 brd.addBlock(b1)
 brd.addBlock(b2)
 brd.addBlock(target,is_target=True)
 
-
 print(brd.toMatrix())
+
 print(brd.isValid())
 brd.didWin()
 
@@ -28,3 +29,6 @@ b = brd.getMoveFeedback(0,1)
 c = [a]
 c.append(b)
 
+
+a = [1,2,3,4]
+random.choice(a)
