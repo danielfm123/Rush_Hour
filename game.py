@@ -1,14 +1,6 @@
 import numpy as np
-import copy
-import random
 
 possible_moves = [-1,1]
-
-def randomPop(elements):
-    if(len(elements) > 0):
-        taken = random.choice(elements)
-        elements.remove(taken)
-        return taken
 
 class Block:
 
@@ -24,8 +16,15 @@ class Block:
         else:
             self.y = self.y + n
 
-    def getVector(self):
-        return [self.x,self.y,self.length,self.horizontal]
+    def getVector(self,size = 6):
+        vector = [0] * size * size
+        if self.horizontal:
+            for n in range(self.length):
+                vector[self.y*size + self.x + n] = 1
+        else:
+            for n in range(self.length):
+                vector[(self.y+n)*size + self.x] = 1
+        return vector
 
     def makeTarget(x):
         return Block(x,2,2,True)
@@ -40,6 +39,20 @@ class Board:
         self.blocks = []
         self.max_blocks = max_blocks
         self.target_set = False
+
+    def fromTxt(file):
+        game = Board()
+        with open(file,'r') as f:
+            lineas = f.read().splitlines()
+        for l in lineas:
+            param = l.split(' ')
+            bloque = Block(int(param[0]),int(param[1]),int(param[3]),param[2]=='h')
+            game.addBlock(bloque,param[4]=='R')
+        return game
+
+    def __hash__(self):
+        return hash(str(self.getBoardVector()))
+
 
     def addBlock(self, block, is_target=False):
         if len(self.blocks) > self.max_blocks:
@@ -77,6 +90,22 @@ class Board:
             return matrix
         except:
             return np.matrix([99])
+
+    def toHuman(self):
+        if self.isValid():
+            matrix = np.zeros((self.size, self.size))
+            for n in range(len(self.blocks)):
+                block = self.blocks[n]
+                if block.length > 0:
+                    if block.horizontal:
+                        for x in range(block.x, block.x + block.length):
+                            matrix[block.y, x] = matrix[block.y, x] + n+1
+                    else:
+                        for y in range(block.y, block.y + block.length):
+                            matrix[y, block.x] = matrix[y, block.x] + n+1
+            return str(matrix)
+        else:
+            return None
 
     def isValid(self):
         for b in range(len(self.blocks)):

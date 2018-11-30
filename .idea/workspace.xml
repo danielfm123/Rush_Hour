@@ -1,9 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e6a3f5fd-35fb-4b81-8be3-1be479de20fe" name="Default Changelist" comment="">
+    <list default="true" id="e6a3f5fd-35fb-4b81-8be3-1be479de20fe" name="Default Changelist" comment="iteration complete">
+      <change afterPath="$PROJECT_DIR$/iterarV2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/iterate.R.py" beforeDir="false" afterPath="$PROJECT_DIR$/iterate.R.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Advanced/Dangerous.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Advanced/Scream.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Advanced/Toughie.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Advanced/Traffic Mixup.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Beginner/Beat It.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Beginner/Just Six.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Beginner/Round About.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Beginner/Straight Forward.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Beginner/Think Backwards.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Beginner/Wolf Pack.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Intermediate/Blocked In.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Intermediate/Figure Eight.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Intermediate/Jam.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/Intermediate/Plan Ahead.rsh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/4.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/5.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/6.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/7.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/8.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/samples/puzzles/test.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/traffic test.py" beforeDir="false" afterPath="$PROJECT_DIR$/traffic test.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -15,22 +40,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/traffic test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/iterate.R.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="38" column="43" lean-forward="true" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+            <state relative-caret-position="299">
+              <caret line="34" column="42" selection-end-line="57" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -39,13 +52,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/iterarV2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="281">
+              <caret line="25" column="47" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -76,9 +98,11 @@
         <option value="$PROJECT_DIR$/block.py" />
         <option value="$PROJECT_DIR$/__init__.py" />
         <option value="$PROJECT_DIR$/board.py" />
-        <option value="$PROJECT_DIR$/traffic test.py" />
-        <option value="$PROJECT_DIR$/game.py" />
         <option value="$PROJECT_DIR$/iterate.R.py" />
+        <option value="$PROJECT_DIR$/test.R" />
+        <option value="$PROJECT_DIR$/traffic test.py" />
+        <option value="$PROJECT_DIR$/iterarV2.py" />
+        <option value="$PROJECT_DIR$/game.py" />
       </list>
     </option>
   </component>
@@ -93,6 +117,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -108,12 +133,11 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/traffic test.py" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -193,7 +217,21 @@
       <option name="project" value="LOCAL" />
       <updated>1543103566579</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="solving, but too much">
+      <created>1543542050501</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1543542050501</updated>
+    </task>
+    <task id="LOCAL-00003" summary="iteration complete">
+      <created>1543553149536</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1543553149536</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView">
@@ -207,21 +245,22 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-18" width="1920" height="988" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49853802" visible="true" weight="0.090521835" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49853802" visible="true" weight="0.15282215" />
       <window_info id="Structure" order="1" sideWeight="0.501462" side_tool="true" weight="0.20950468" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32992035" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32764506" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.3970421" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3272506" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39659366" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32894737" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32894737" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="10" visible="true" weight="0.39476678" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32846716" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.5005325" side_tool="true" weight="0.44647202" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="10" sideWeight="0.49946752" visible="true" weight="0.25142208" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -252,18 +291,33 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first time" />
-    <option name="LAST_COMMIT_MESSAGE" value="first time" />
+    <MESSAGE value="solving, but too much" />
+    <MESSAGE value="iteration complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="iteration complete" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/game.py</url>
-          <line>54</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>x</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>, x</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>matrix[block.y, x]</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>matrix</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/__init__.py" />
@@ -282,27 +336,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python3.6/code.py">
+    <entry file="file:///usr/lib/python3/dist-packages/apport_python_hook.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="90" selection-start-line="90" selection-end-line="90" />
+        <state relative-caret-position="157">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.py">
+    <entry file="file:///usr/lib/python3.6/code.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="181">
+          <caret line="90" selection-start-line="90" selection-end-line="90" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/traffic test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="33" column="16" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+        <state relative-caret-position="150">
+          <caret line="10" column="3" selection-end-line="15" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.R">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iterarV2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="39" column="13" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -311,11 +379,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/iterate.R.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="43" lean-forward="true" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
+        <state relative-caret-position="299">
+          <caret line="34" column="42" selection-end-line="57" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="25" column="47" selection-start-line="25" selection-start-column="47" selection-end-line="25" selection-end-column="47" />
         </state>
       </provider>
     </entry>

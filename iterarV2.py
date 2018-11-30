@@ -2,36 +2,24 @@ import game
 import importlib
 import copy
 import random
-game = importlib.reload(game)
 
 def randomPop(elements):
-    if(len(elements) > 0):
+    if len(elements) > 0:
         taken = random.choice(elements)
         elements.remove(taken)
         return taken
 
-brd = game.Board()
-b0 = game.Block(1,1,3,True)
-b1 = game.Block(0,0,3,False)
-b2 = game.Block(1,1,0,False)
-target = game.Block.makeTarget(2)
+game = importlib.reload(game)
 
-brd.addBlock(b0)
-brd.addBlock(b1)
-brd.addBlock(b2)
-brd.addBlock(target,is_target=True)
+brd = game.Board.fromTxt('samples/txt/1.txt')
 
-brd.isValid()
-brd.toMatrix()
-brd.didWin()
-
-hsize = 500000
+hsize = 1000000
 feedback = []
 board_queue = [brd]
 found_boards = [None for n in range(hsize)]
 
 while len(board_queue) > 0:
-    print(len(board_queue))
+    #print(len(board_queue), len(feedback))
     current_board = randomPop(board_queue)
     if current_board.didWin():
         print('won!')
@@ -49,9 +37,19 @@ while len(board_queue) > 0:
             feedback.append(pre_feedback)
 
 
-# for b in found_boards:
-#    print(sum([x == b for x in found_boards]))
+#validaciones
+valid_boards = []
+for b in found_boards:
+    if b is not None:
+        valid_boards.append(b)
+
+b = random.choice(valid_boards)
+vec = b.getBoardVector()
+print(sum([x.getBoardVector() == vec for x in valid_boards]))
+
+#uso del hash
+sum([h is not None for h in found_boards])/hsize
 
 
-# print(len(feedback))
+print(len(feedback))
 
