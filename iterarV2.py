@@ -2,12 +2,7 @@ import game
 import importlib
 import copy
 import random
-
-def randomPop(elements):
-    if len(elements) > 0:
-        taken = random.choice(elements)
-        elements.remove(taken)
-        return taken
+import fn
 
 game = importlib.reload(game)
 
@@ -20,7 +15,7 @@ found_boards = [None for n in range(hsize)]
 
 while len(board_queue) > 0:
     #print(len(board_queue), len(feedback))
-    current_board = randomPop(board_queue)
+    current_board =fn.randomPop(board_queue)
     if current_board.didWin():
         print('won!')
     else:
@@ -29,13 +24,14 @@ while len(board_queue) > 0:
             pre_feedback = test_board.getMoveFeedback(b, p)
             if pre_feedback[0]:
                 hash_val = hash(test_board) % hsize
-                if found_boards[hash_val] is not None:
-                    pre_feedback[0] = False
-                else:
+                if found_boards[hash_val] is None:
                     board_queue.append(test_board)
                     found_boards[hash_val] = test_board
+                else:
+                    pre_feedback[0] = False
             feedback.append(pre_feedback)
 
+a = fn.makeFeedback(brd)
 
 #validaciones
 valid_boards = []

@@ -1,10 +1,21 @@
 import game
-import numpy as np
-import copy
+import fn
+import pandas as pd
+import os
 
-import importlib
-game = importlib.reload(game)
+txt_path = 'samples/txt/'
 
-g = game.Board.fromTxt('samples/txt/1.txt')
-b = g.blocks[1]
-b.getVector()
+boards = os.listdir(txt_path)
+
+for b in boards:
+    brd = game.Board.fromTxt(txt_path + b)
+    feedback = []
+    for n in range(2):
+        print(b)
+        print(n)
+        aux = fn.makeFeedback(brd)
+        feedback = feedback + aux
+
+    with open('feedback/' + b + '.fback','w+') as f:
+        for fbak in feedback:
+            f.write(','.join([str(x) for x in fbak]) + '\n')

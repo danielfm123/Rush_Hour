@@ -39,6 +39,7 @@ class Board:
         self.blocks = []
         self.max_blocks = max_blocks
         self.target_set = False
+        self.moves = 0
 
     def fromTxt(file):
         game = Board()
@@ -103,7 +104,7 @@ class Board:
                     else:
                         for y in range(block.y, block.y + block.length):
                             matrix[y, block.x] = matrix[y, block.x] + n+1
-            return str(matrix)
+            return matrix
         else:
             return None
 
@@ -121,6 +122,7 @@ class Board:
             return False
         block.move(n)
         if self.isValid():
+            self.moves = self.moves + 1
             return True
         else:
             block.move(-n)
@@ -150,4 +152,5 @@ class Board:
         for b in range(len(self.blocks)):
             for p in possible_moves:
                 yield b, p
+                
 
