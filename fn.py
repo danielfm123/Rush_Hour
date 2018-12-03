@@ -30,9 +30,13 @@ def makeFeedback(brd):
                     hash_val = hash(test_board) % hsize
                     if found_boards[hash_val] is None:
                         board_queue.append(test_board)
-                        found_boards[hash_val] = test_board
+                        found_boards[hash_val] = [test_board,pre_feedback]
                     else:
-                        pre_feedback[0] = False
+                        if found_boards[hash_val][0].moves < test_board.moves: # me quedo con e mejor
+                            pre_feedback[0] = False
+                        else:
+                            found_boards[hash_val][1][0] = False
+                            found_boards[hash_val][1] = pre_feedback
                 feedback.append(pre_feedback)
 
     print('hash usage '+ str(sum([h is not None for h in found_boards])/hsize))
