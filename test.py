@@ -3,10 +3,11 @@ import importlib
 import fn
 import random
 import pandas as pd
+import visualisation
 import h2o
 import h2o.estimators.deeplearning as dl
 
-fn = importlib.reload(fn)
+visualisation = importlib.reload(visualisation)
 game = importlib.reload(game)
 
 brd = game.Board.fromTxt('samples/txt/3.txt')
@@ -14,13 +15,15 @@ brd.toMatrix()
 brd.isValid()
 len(brd.blocks)
 brd.toHuman()
-brd.shuffle()
+visualisation.Visualisation(brd)
 
-feedback = brd.makeFeedback(bestOnly=True, validOnly=True, bestPath = True,discountRate=1)
+#brd.shuffle()
+
+#feedback = brd.makeFeedback(bestOnly=True, validOnly=True, bestPath = True,discountRate=1)
 
 
-len(feedback)
-sum([x['response'] > 0 for x in feedback])/len(feedback)
+#len(feedback)
+#sum([x['response'] > 0 for x in feedback])/len(feedback)
 
 dataset = pd.DataFrame([ [x['response']] + x['board_vec'] + x['movement'] for x in feedback])
 dataset

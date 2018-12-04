@@ -185,7 +185,6 @@ class Board:
                     for p in [(0, -1), (0, 1)]:
                         yield b, p
 
-
     def shuffle(self):
         rojo = self.blocks[0]
         resto = self.blocks[1:]
