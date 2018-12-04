@@ -2,6 +2,7 @@ import pygame, random, sys
 from pygame.locals import *
 from collections import Counter
 import game
+import time
 
 class Visualisation:
     def __init__(self, root:game.Block, tile=80):
@@ -19,11 +20,6 @@ class Visualisation:
         self.draw_board()
         pygame.display.update()
 
-        # pause visualisation (wait for input)
-        self.pause()
-
-        # start visualisation
-        self.run()
 
     def check_input(self):
         """
@@ -55,49 +51,29 @@ class Visualisation:
         pygame.quit()
         sys.exit()
 
-    def pause(self):
-        """
-        pause the visualisation, wait for input
-        """
-        while True:
-            for event in pygame.event.get():
-                if event.type == QUIT:
-                    self.exit()
-                elif event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        self.exit()
-                    return False
-
-    def run(self):
-        """
-        start the visualisation, which will pause after completing
-        """
-
-        # iterate over the moves in the solution
-        while len(self.solution) > 0:
-            self.check_input()
-            self.window.fill((255, 255, 255))
-            self.update_vehicles(self.solution.pop(0))
+    def moveBlock(self, block_num, dx,dy):
+        result = self.brd.moveBlock(block_num,dx,dy,force=True)
+        if result:
             self.draw_board()
+        else:
+            print('Ilegal Move ' + str(block_num) + ' dx:' + str(dx) + ' dy:' + str(dy))
+            #print(self.brd.toHuman())
+            self.draw_board()
+            time.sleep(0.3)
+
+            self.window.fill((255, 0, 0))
             pygame.display.update()
-            pygame.time.wait(150)
+            time.sleep(0.1)
 
-        # wait for input to quit
-        while True:
-            for event in pygame.event.get():
-                if event.type == QUIT or event.type == KEYDOWN:
-                    self.exit()
-
-    def update_vehicles(self, block_num, dx,dy):
-
-        self.brd.moveBlock(block_num,dx,dy)
+            self.brd.moveBlock(block_num, -dx, -dy)
+            self.draw_board()
 
     def draw_board(self):
         """
         draw the current vehicles on the window
         """
         print(self.brd.toHuman())
-
+        self.window.fill((255, 255, 255))
         for v, c in zip(self.vehicles, self.colors):
 
             # draw horizontally orientated vehicles
@@ -107,3 +83,4 @@ class Visualisation:
                 # draw vertically orientated vehicles
                 else:
                     pygame.draw.rect(self.window, c, (v.x * self.tile, v.y * self.tile, self.tile, v.length * self.tile))
+        pygame.display.update()

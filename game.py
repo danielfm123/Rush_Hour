@@ -134,7 +134,7 @@ class Board:
             return False
         return True
 
-    def moveBlock(self,block_number, dx, dy, testOnly = False):
+    def moveBlock(self,block_number, dx, dy, testOnly = False,force = False):
         if testOnly:
             return copy.deepcopy().moveBlock(block_number,dx,dy,False)
         block = self.blocks[block_number]
@@ -146,7 +146,7 @@ class Board:
         if self.isValid():
             self.moves = self.moves + 1
             return True
-        else:
+        elif not force:
             block.move(-dx, -dy)
             return False
 

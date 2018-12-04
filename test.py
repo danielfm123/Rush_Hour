@@ -15,7 +15,8 @@ brd.toMatrix()
 brd.isValid()
 len(brd.blocks)
 brd.toHuman()
-visualisation.Visualisation(brd)
+vis = visualisation.Visualisation(brd)
+vis.moveBlock(0,-1,0)
 
 #brd.shuffle()
 
@@ -25,8 +26,8 @@ visualisation.Visualisation(brd)
 #len(feedback)
 #sum([x['response'] > 0 for x in feedback])/len(feedback)
 
-dataset = pd.DataFrame([ [x['response']] + x['board_vec'] + x['movement'] for x in feedback])
-dataset
+#dataset = pd.DataFrame([ [x['response']] + x['board_vec'] + x['movement'] for x in feedback])
+#dataset
 
 #h2o.init()
 
