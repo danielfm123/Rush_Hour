@@ -9,6 +9,9 @@ fn = importlib.reload(fn)
 game = importlib.reload(game)
 
 brd = game.Board.fromTxt('samples/txt/3.txt')
+brd.toMatrix()
+brd.isValid()
+len(brd.blocks)
 brd.toHuman()
 
 feedback = fn.makeFeedback(brd, bestOnly=True, validOnly=True, bestPath = True)
@@ -16,6 +19,8 @@ feedback = fn.makeFeedback(brd, bestOnly=True, validOnly=True, bestPath = True)
 
 len(feedback)
 sum([x['response'] > 0 for x in feedback])/len(feedback)
+
+dataset = [ [x['response']] + x['board_vec'] + x['movement'] for x in feedback]
 
 #h2o.init()
 

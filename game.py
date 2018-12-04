@@ -23,7 +23,7 @@ class Block:
         else:
             for n in range(self.length):
                 vector[(self.y+n)*size + self.x] = 1
-        return [int(self.horizontal)] + vector
+        return [1,int(self.horizontal)] + vector #existence, horizontal, used spaces
 
     def makeTarget(x):
         return Block(x,2,2,True)
@@ -39,6 +39,8 @@ class Board:
         self.max_blocks = max_blocks
         self.target_set = False
         self.moves = 0
+        self.blocks_number = 0
+        self.commited = False
 
     def fromTxt(file: str):
         game = Board()
@@ -48,6 +50,7 @@ class Board:
             param = l.split(' ')
             bloque = Block(int(param[0]),int(param[1]),int(param[3]),param[2]=='h')
             game.addBlock(bloque,param[4]=='R')
+        game.commitBoard()
         return game
 
     def __hash__(self):
@@ -55,6 +58,9 @@ class Board:
 
 
     def addBlock(self, block:int, is_target=False):
+        if self.commited:
+            print('Board Commited, cant add blocks')
+            return False
         if len(self.blocks) > self.max_blocks:
             exit('More blocks than slots!')
         if is_target:
@@ -62,10 +68,16 @@ class Board:
             self.blocks = [block] + self.blocks
         else:
             self.blocks = self.blocks + [block]
+        self.blocks_number += 1
+        return True
 
+    def commitBoard(self):
+        self.blocks = self.blocks + [None for x in range(len(self.blocks), self.max_blocks)]
 
     def isBlockInside(self,block_num):
         block = self.blocks[block_num]
+        if block is None:
+            return True
         if (block.x >= 0 and block.y >= 0):
             if block.horizontal:
                 if (block.x + block.length <= self.size):
@@ -80,7 +92,7 @@ class Board:
         try:
             matrix = np.zeros((self.size, self.size))
             for block in self.blocks:
-                if block.length > 0:
+                if block is not None:
                     if block.horizontal:
                         for x in range(block.x, block.x + block.length):
                             matrix[block.y, x] = matrix[block.y, x] + 1
@@ -96,7 +108,7 @@ class Board:
             matrix = np.zeros((self.size, self.size))
             for n in range(len(self.blocks)):
                 block = self.blocks[n]
-                if block.length > 0:
+                if block is not None:
                     if block.horizontal:
                         for x in range(block.x, block.x + block.length):
                             matrix[block.y, x] = matrix[block.y, x] + n+1
@@ -117,7 +129,7 @@ class Board:
 
     def moveBlock(self,block_number, dx, dy):
         block = self.blocks[block_number]
-        if block.length == 0:
+        if block is None:
             return False
         if (block.horizontal and dy != 0) or (not block.horizontal and dx != 0 ):
             return False
@@ -138,8 +150,10 @@ class Board:
     def getBoardVector(self):
         vector = []
         for b in self.blocks:
+            if b is not None:
                 vector = vector + b.getVector()
-        vector = vector + [0,0,0,0,0]*(self.max_blocks - len(self.blocks))
+            else:
+                vector = vector + [0,0] + [0]*self.size*self.size
         return vector
 
     def getMoveResponse(self, block_number, dx, dy):
