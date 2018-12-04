@@ -16,14 +16,14 @@ len(brd.blocks)
 brd.toHuman()
 brd.shuffle()
 
-
-feedback = fn.makeFeedback(brd, bestOnly=True, validOnly=True, bestPath = True)
+feedback = brd.makeFeedback(bestOnly=True, validOnly=True, bestPath = True,discountRate=1)
 
 
 len(feedback)
 sum([x['response'] > 0 for x in feedback])/len(feedback)
 
-dataset = [ [x['response']] + x['board_vec'] + x['movement'] for x in feedback]
+dataset = pd.DataFrame([ [x['response']] + x['board_vec'] + x['movement'] for x in feedback])
+dataset
 
 #h2o.init()
 
