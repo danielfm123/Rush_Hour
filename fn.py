@@ -10,34 +10,57 @@ def randomPop(elements):
         elements.remove(taken)
         return taken
 
-def makeFeedback(brd):
+def makeFeedback(brd, bestOnly = True, validOnly = False, bestPath = True, discountRate = 0.95):
     hsize = 1000000
-    feedback = []
+    feedback_dataset = []
     board_queue = [brd]
     found_boards = [None for n in range(hsize)]
+    found_boards[hash(brd) % hsize] = {'board': brd, 'feedback': []}
+    winner_boards = []
 
     while len(board_queue) > 0:
         # print(len(board_queue), len(feedback))
         current_board = randomPop(board_queue)
         if current_board.didWin():
             print('won!')
-            #pass
+            winner_boards.append(hash(current_board) % hsize)
         else:
             for b, p in current_board.makeAllMoves():
-                test_board = copy.deepcopy(current_board)
-                pre_feedback = test_board.getMoveFeedback(b, p)
-                if pre_feedback[0]:
-                    hash_val = hash(test_board) % hsize
+                tested_board = copy.deepcopy(current_board)
+                feedback = tested_board.getMoveResponse(b, p)
+                if feedback['response']:
+                    hash_val = hash(tested_board) % hsize
                     if found_boards[hash_val] is None:
-                        board_queue.append(test_board)
-                        found_boards[hash_val] = [test_board,pre_feedback]
-                    else:
-                        if found_boards[hash_val][0].moves < test_board.moves: # me quedo con e mejor
-                            pre_feedback[0] = False
-                        else:
-                            found_boards[hash_val][1][0] = False
-                            found_boards[hash_val][1] = pre_feedback
-                feedback.append(pre_feedback)
+                        board_queue.append(tested_board)
+                        found_boards[hash_val] = {'board': tested_board, 'feedback': feedback}
+                    elif bestOnly: # me quedo con el mejor?
+                        if found_boards[hash_val]['board'].moves < tested_board.moves:
+                            feedback['response'] = False
+                        else: # no era el mejor
+                            found_boards[hash_val]['feedback']['response'] = False
+                            found_boards[hash_val]['feedback'] = feedback
+                    feedback_dataset.append(feedback)
+                elif not validOnly: # keep only valid moves
+                    feedback_dataset.append(feedback)
+
+    if bestPath:
+        for f in feedback_dataset:
+            f['response'] = 0
+
+        for w in winner_boards:
+            b = found_boards[w]
+            distance = 0
+            while len(b['feedback']) > 0:
+                #print(b['board'].toHuman())
+                b['feedback']['response'] = pow(discountRate,distance)
+                prev_board = b['feedback']['board']
+                hash_val = hash(prev_board) % hsize
+                b = found_boards[hash_val]
+                distance += 1
+    else:
+        for f in feedback_dataset:
+            f['response'] = int(f['response'])
 
     print('hash usage '+ str(sum([h is not None for h in found_boards])/hsize))
-    return  feedback
+    return feedback_dataset
+

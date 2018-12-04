@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 possible_moves = [-1,1]
 
@@ -24,7 +25,7 @@ class Block:
         else:
             for n in range(self.length):
                 vector[(self.y+n)*size + self.x] = 1
-        return vector
+        return [int(self.horizontal)] + vector
 
     def makeTarget(x):
         return Block(x,2,2,True)
@@ -41,7 +42,7 @@ class Board:
         self.target_set = False
         self.moves = 0
 
-    def fromTxt(file):
+    def fromTxt(file: str):
         game = Board()
         with open(file,'r') as f:
             lineas = f.read().splitlines()
@@ -55,7 +56,7 @@ class Board:
         return hash(str(self.getBoardVector()))
 
 
-    def addBlock(self, block, is_target=False):
+    def addBlock(self, block:int, is_target=False):
         if len(self.blocks) > self.max_blocks:
             exit('More blocks than slots!')
         if is_target:
@@ -138,15 +139,16 @@ class Board:
         vector = []
         for b in self.blocks:
                 vector = vector + b.getVector()
-        vector = vector + [0,0,0,0]*(self.max_blocks - len(self.blocks))
+        vector = vector + [0,0,0,0,0]*(self.max_blocks - len(self.blocks))
         return vector
 
-    def getMoveFeedback(self,block_number,n):
-        board = self.getBoardVector()
+    def getMoveResponse(self, block_number, n):
+        board_vec = self.getBoardVector()
+        board = copy.deepcopy(self)
         movement = [0]*self.max_blocks
         movement[block_number] = n
-        feedbabk = self.moveBlock(block_number, n)
-        return  [feedbabk] + board + movement
+        response = self.moveBlock(block_number, n)
+        return {'response':response, 'board_vec': board_vec, 'board' : board,  'movement': movement}
 
     def makeAllMoves(self):
         for b in range(len(self.blocks)):
