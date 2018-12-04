@@ -8,7 +8,7 @@ import h2o.estimators.deeplearning as dl
 fn = importlib.reload(fn)
 game = importlib.reload(game)
 
-brd = game.Board.fromTxt('samples/txt/1.txt')
+brd = game.Board.fromTxt('samples/txt/3.txt')
 brd.toHuman()
 
 feedback = fn.makeFeedback(brd, bestOnly=True, validOnly=True, bestPath = True)

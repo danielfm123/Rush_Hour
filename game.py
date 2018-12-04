@@ -1,7 +1,7 @@
 import numpy as np
 import copy
 
-possible_moves = [-1,1]
+possible_moves = [(-1,0),(1,0),(0,-1),(0,1)]
 
 class Block:
 
@@ -11,11 +11,9 @@ class Block:
         self.x = x
         self.y = y
 
-    def move(self,n):
-        if(self.horizontal):
-            self.x  = self.x + n
-        else:
-            self.y = self.y + n
+    def move(self,dx,dy):
+            self.x = self.x + dx
+            self.y = self.y + dy
 
     def getVector(self,size = 6):
         vector = [0] * size * size
@@ -117,16 +115,18 @@ class Board:
             return False
         return True
 
-    def moveBlock(self,block_number, n):
+    def moveBlock(self,block_number, dx, dy):
         block = self.blocks[block_number]
         if block.length == 0:
             return False
-        block.move(n)
+        if (block.horizontal and dy != 0) or (not block.horizontal and dx != 0 ):
+            return False
+        block.move(dx, dy)
         if self.isValid():
             self.moves = self.moves + 1
             return True
         else:
-            block.move(-n)
+            block.move(-dx, -dy)
             return False
 
     def didWin(self):
@@ -142,12 +142,13 @@ class Board:
         vector = vector + [0,0,0,0,0]*(self.max_blocks - len(self.blocks))
         return vector
 
-    def getMoveResponse(self, block_number, n):
+    def getMoveResponse(self, block_number, dx, dy):
         board_vec = self.getBoardVector()
         board = copy.deepcopy(self)
-        movement = [0]*self.max_blocks
-        movement[block_number] = n
-        response = self.moveBlock(block_number, n)
+        movement = [0,0] * self.max_blocks
+        movement[2 * block_number] = dx
+        movement[2 * block_number + 1] = dy
+        response = self.moveBlock(block_number, dx,dy)
         return {'response':response, 'board_vec': board_vec, 'board' : board,  'movement': movement}
 
     def makeAllMoves(self):

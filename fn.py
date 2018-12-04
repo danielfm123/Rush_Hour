@@ -27,7 +27,7 @@ def makeFeedback(brd, bestOnly = True, validOnly = False, bestPath = True, disco
         else:
             for b, p in current_board.makeAllMoves():
                 tested_board = copy.deepcopy(current_board)
-                feedback = tested_board.getMoveResponse(b, p)
+                feedback = tested_board.getMoveResponse(b, p[0], p[1])
                 if feedback['response']:
                     hash_val = hash(tested_board) % hsize
                     if found_boards[hash_val] is None:

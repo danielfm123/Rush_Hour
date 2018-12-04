@@ -3,7 +3,7 @@ import fn
 import pandas as pd
 import os
 
-txt_path = 'samples/txt/'
+txt_path = 'samples/txt/3.txt'
 
 boards = os.listdir(txt_path)
 
