@@ -1,6 +1,7 @@
 import game
 import importlib
 import fn
+import random
 import pandas as pd
 import h2o
 import h2o.estimators.deeplearning as dl
@@ -13,6 +14,8 @@ brd.toMatrix()
 brd.isValid()
 len(brd.blocks)
 brd.toHuman()
+brd.shuffle()
+
 
 feedback = fn.makeFeedback(brd, bestOnly=True, validOnly=True, bestPath = True)
 

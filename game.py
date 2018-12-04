@@ -1,5 +1,6 @@
 import numpy as np
 import copy
+import random
 
 possible_moves = [(-1,0),(1,0),(0,-1),(0,1)]
 
@@ -169,5 +170,10 @@ class Board:
         for b in range(len(self.blocks)):
             for p in possible_moves:
                 yield b, p
-                
+
+    def shuffle(self):
+        rojo = self.blocks[0]
+        resto = self.blocks[1:]
+        random.shuffle(resto)
+        self.blocks = [rojo] + resto
 
