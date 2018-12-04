@@ -134,7 +134,9 @@ class Board:
             return False
         return True
 
-    def moveBlock(self,block_number, dx, dy):
+    def moveBlock(self,block_number, dx, dy, testOnly = False):
+        if testOnly:
+            return copy.deepcopy().moveBlock(block_number,dx,dy,False)
         block = self.blocks[block_number]
         if block is None:
             return False
@@ -225,7 +227,7 @@ class Board:
 
         if bestPath:
             for f in feedback_dataset:
-                f['response'] = 0
+                f['response'] = -1
 
             for w in winner_boards:
                 b = found_boards[w]
@@ -239,7 +241,7 @@ class Board:
                     distance += 1
         else:
             for f in feedback_dataset:
-                f['response'] = int(f['response'])
+                f['response'] = 1 if ['response'] else -1
 
         print('hash usage ' + str(sum([h is not None for h in found_boards]) / hsize))
         return feedback_dataset
