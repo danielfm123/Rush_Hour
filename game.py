@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 import random
+import visualisation
 
 
 def randomPop(elements):
@@ -49,22 +50,33 @@ class Board:
         self.blocks_number = 0
         self.commited = False
 
-    def fromTxt(file: str):
-        game = Board()
+    def fromTxt(self,file: str):
         with open(file,'r') as f:
             lineas = f.read().splitlines()
         for l in lineas:
             param = l.split(' ')
             bloque = Block(int(param[0]),int(param[1]),int(param[3]),param[2]=='h')
-            game.addBlock(bloque,param[4]=='R')
-        game.commitBoard()
-        return game
+            self.addBlock(bloque,param[4]=='R')
+        self.commitBoard()
+
+    def fromRsh(self,file: str):
+        with open(file,'r') as f:
+            lines = f.read().splitlines()
+        lines = lines[1:]
+        while len(lines) > 0:
+            x = int(lines.pop()) - 1
+            y = int(lines.pop()) - 1
+            horizontal = lines.pop() == 'h'
+            target = lines.pop() == 'Red'
+            length = 3 if lines.pop() == 'truck' else 2
+            block = Block(x,y,length,horizontal)
+            self.addBlock(block,target)
+        self.commitBoard()
 
     def __hash__(self):
         return hash(str(self.getBoardVector()))
 
-
-    def addBlock(self, block:int, is_target=False):
+    def addBlock(self, block:Block, is_target=False):
         if self.commited:
             print('Board Commited, cant add blocks')
             return False
@@ -140,15 +152,13 @@ class Board:
         block = self.blocks[block_number]
         if block is None:
             return False
-        if (block.horizontal and dy != 0) or (not block.horizontal and dx != 0 ):
-            return False
         block.move(dx, dy)
-        if self.isValid():
+        if ( block.horizontal == bool(dx)) and ( block.horizontal != bool(dy) ) and self.isValid():
             self.moves = self.moves + 1
             return True
         elif not force:
             block.move(-dx, -dy)
-            return False
+        return False
 
     def didWin(self):
         if self.blocks[0].x == 4 and self.target_set:
@@ -174,16 +184,20 @@ class Board:
         response = self.moveBlock(block_number, dx,dy)
         return {'response':response, 'board_vec': board_vec, 'board' : board,  'movement': movement}
 
-    def makeAllMoves(self):
+    def makeAllMoves(self,all=False):
         for b in range(len(self.blocks)):
             block = self.blocks[b]
             if block is not None:
-                if block.horizontal:
-                    for p in [(-1, 0), (1, 0)]:
+                if all:
+                    for p in [(0, -1), (0, 1),(-1, 0), (1, 0)]:
                         yield b, p
                 else:
-                    for p in [(0, -1), (0, 1)]:
-                        yield b, p
+                    if block.horizontal:
+                        for p in [(-1, 0), (1, 0)]:
+                            yield b, p
+                    else:
+                        for p in [(0, -1), (0, 1)]:
+                            yield b, p
 
     def shuffle(self):
         rojo = self.blocks[0]
@@ -191,22 +205,28 @@ class Board:
         random.shuffle(resto)
         self.blocks = [rojo] + resto
 
-    def makeFeedback(self, bestOnly=True, validOnly=False, bestPath=True, discountRate=0.95):
+    def makeFeedback(self, keepBestPrevious=True, keepValidOnly=False, allMoves = False, victoryPath=True, discountRate=0.95, interactive = False):
         hsize = 1000000
         feedback_dataset = []
         board_queue = [self]
         found_boards = [None for n in range(hsize)]
         found_boards[hash(self) % hsize] = {'board': self, 'feedback': []}
         winner_boards = []
+        if interactive:
+            vis = visualisation.Visualisation(self)
 
         while len(board_queue) > 0:
             # print(len(board_queue), len(feedback))
             current_board = randomPop(board_queue)
+            if interactive:
+                vis.new_board(current_board)
             if current_board.didWin():
                 print('won!')
                 winner_boards.append(hash(current_board) % hsize)
+                if interactive:
+                    vis.new_board(current_board,2)
             else:
-                for b, p in current_board.makeAllMoves():
+                for b, p in current_board.makeAllMoves(allMoves):
                     tested_board = copy.deepcopy(current_board)
                     feedback = tested_board.getMoveResponse(b, p[0], p[1])
                     if feedback['response']:
@@ -214,17 +234,17 @@ class Board:
                         if found_boards[hash_val] is None:
                             board_queue.append(tested_board)
                             found_boards[hash_val] = {'board': tested_board, 'feedback': feedback}
-                        elif bestOnly:  # me quedo con el mejor?
+                        elif keepBestPrevious:  # me quedo con el mejor?
                             if found_boards[hash_val]['board'].moves < tested_board.moves:
                                 feedback['response'] = False
                             else:  # no era el mejor
                                 found_boards[hash_val]['feedback']['response'] = False
                                 found_boards[hash_val]['feedback'] = feedback
                         feedback_dataset.append(feedback)
-                    elif not validOnly:  # keep only valid moves
+                    elif not keepValidOnly:  # keep only valid moves
                         feedback_dataset.append(feedback)
 
-        if bestPath:
+        if victoryPath:
             for f in feedback_dataset:
                 f['response'] = -1
 

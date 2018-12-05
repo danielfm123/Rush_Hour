@@ -1,6 +1,5 @@
 import game
 import importlib
-import fn
 import random
 import pandas as pd
 import visualisation
@@ -10,17 +9,20 @@ import h2o.estimators.deeplearning as dl
 visualisation = importlib.reload(visualisation)
 game = importlib.reload(game)
 
-brd = game.Board.fromTxt('samples/txt/3.txt')
+brd =game.Board()
+brd.fromRsh('samples/rsh/Beat It.rsh')
+#brd.fromTxt('samples/txt/3.txt')
 brd.toMatrix()
 brd.isValid()
 len(brd.blocks)
 brd.toHuman()
-vis = visualisation.Visualisation(brd)
-vis.moveBlock(0,-1,0)
+#vis = visualisation.Visualisation(brd)
+#brd.moveBlock(1,0,-1)
+#vis.new_board(brd)
 
 #brd.shuffle()
 
-#feedback = brd.makeFeedback(bestOnly=True, validOnly=True, bestPath = True,discountRate=1)
+feedback = brd.makeFeedback(keepBestPrevious=True, keepValidOnly=True, victoryPath= True, discountRate=1, interactive=False)
 
 
 #len(feedback)
